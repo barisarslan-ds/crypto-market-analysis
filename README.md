@@ -1,8 +1,8 @@
 # crypto market analysis
 
-a compact research workspace for studying the btc/sol relationship with daily binance us market data.
+a compact btc/sol market analysis project using daily binance us data.
 
-the repo currently holds the data layer and the first relative-spread analysis output. the next build step is a vectorized python backtesting framework for comparing directional, pairs, and buy-and-hold wallets.
+the project packages the raw market data, processed relative-spread dataset, spreadsheet analysis outputs, and a reproducible downloader for rebuilding the source csv files.
 
 ## what's inside
 
@@ -10,7 +10,7 @@ the repo currently holds the data layer and the first relative-spread analysis o
 | --- | --- |
 | `scripts/` | reproducible data download script |
 | `data/raw/` | daily btc and sol ohlcv csv exports |
-| `data/processed/` | data-only btc/sol relative-spread analysis |
+| `data/processed/` | btc/sol relative-spread csv and workbook outputs |
 
 ## data
 
@@ -22,17 +22,17 @@ the repo currently holds the data layer and the first relative-spread analysis o
 | range | `2025-05-15` to `2026-05-14` |
 | observations | 366 rows per symbol |
 
-tracked csv files:
+tracked data files:
 
 - `data/raw/BTCUSDT_1d_binance_us_2025-05-15_2026-05-15.csv`
 - `data/raw/SOLUSDT_1d_binance_us_2025-05-15_2026-05-15.csv`
 - `data/processed/btc_sol_relative_spread_analysis_dataonly.csv`
+- `data/processed/btc_sol_relative_spread_analysis.xlsx`
+- `data/processed/btc_sol_relative_spread_analysis_dataonly.xlsx`
 
-generated workbook files are intentionally excluded from git.
+## analysis output
 
-## current analysis
-
-the processed dataset is focused on btc/sol relative value:
+the processed files contain the completed btc/sol relative-value analysis:
 
 - btc close
 - sol close
@@ -42,9 +42,9 @@ the processed dataset is focused on btc/sol relative value:
 - 30-day z-score
 - simple signal column
 
-## planned backtest
+## strategy scope
 
-the next stage is a clean, vectorized backtester comparing five wallets:
+the research setup compares five wallet profiles:
 
 - wallet_a: btc directional mean reversion
 - wallet_b: btc/sol market-neutral pairs trading
@@ -52,7 +52,7 @@ the next stage is a clean, vectorized backtester comparing five wallets:
 - wallet_hodl_btc: btc buy and hold
 - wallet_hodl_sol: sol buy and hold
 
-the strategy design will use next-day execution, shifted positions, transaction costs, equity curves, drawdowns, sharpe ratio, win rate, and matplotlib diagnostics.
+the strategy specification uses 30-day z-scores, t+1 execution, shifted positions, transaction costs, equity curves, drawdowns, sharpe ratio, win rate, and matplotlib diagnostics.
 
 ## reproduce the raw data
 
