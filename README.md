@@ -1,53 +1,65 @@
-# Crypto Market Analysis
+# crypto market analysis
 
-Simple BTC/SOL market-analysis workspace using Binance US daily price data.
+a compact research workspace for studying the btc/sol relationship with daily binance us market data.
 
-## Summary
+the repo currently holds the data layer and the first relative-spread analysis output. the next build step is a vectorized python backtesting framework for comparing directional, pairs, and buy-and-hold wallets.
 
-This repository currently contains a reproducible data download script and prepared BTC/SOL relative-spread analysis files. The active vectorized backtesting framework is not included yet; this repo is the data and analysis foundation for that next step.
+## what's inside
 
-## Dataset
+| area | contents |
+| --- | --- |
+| `scripts/` | reproducible data download script |
+| `data/raw/` | daily btc and sol ohlcv csv exports |
+| `data/processed/` | data-only btc/sol relative-spread analysis |
 
-- Source: Binance US public klines API
-- Symbols: `BTCUSDT`, `SOLUSDT`
-- Interval: 1 day
-- Date range: `2025-05-15` through `2026-05-14`
-- Raw rows: 366 daily observations per symbol
+## data
 
-Included CSV files:
+| field | value |
+| --- | --- |
+| source | binance us public klines api |
+| symbols | `BTCUSDT`, `SOLUSDT` |
+| interval | 1 day |
+| range | `2025-05-15` to `2026-05-14` |
+| observations | 366 rows per symbol |
+
+tracked csv files:
 
 - `data/raw/BTCUSDT_1d_binance_us_2025-05-15_2026-05-15.csv`
 - `data/raw/SOLUSDT_1d_binance_us_2025-05-15_2026-05-15.csv`
 - `data/processed/btc_sol_relative_spread_analysis_dataonly.csv`
 
-Generated workbook outputs are intentionally excluded from git.
+generated workbook files are intentionally excluded from git.
 
-## Project Files
+## current analysis
 
-- `scripts/download_binance_us_klines.py`: downloads BTC and SOL daily klines from Binance US and writes raw CSV files.
-- `data/raw/`: raw OHLCV data exported by symbol.
-- `data/processed/`: processed BTC/SOL relative-spread analysis data.
+the processed dataset is focused on btc/sol relative value:
 
-## Analysis Purpose
+- btc close
+- sol close
+- btc/sol ratio
+- 30-day ratio moving average
+- 30-day rolling standard deviation
+- 30-day z-score
+- simple signal column
 
-The processed dataset supports BTC/SOL relative-value research, including the BTC/SOL close-price ratio, a 30-day moving average, rolling standard deviation, and 30-day Z-score. The next planned project step is a clean, vectorized Python backtesting framework comparing:
+## planned backtest
 
-- BTC directional mean-reversion wallet
-- BTC/SOL market-neutral pairs wallet
-- SOL directional mean-reversion wallet
-- BTC buy-and-hold benchmark
-- SOL buy-and-hold benchmark
+the next stage is a clean, vectorized backtester comparing five wallets:
 
-## Reproducibility
+- wallet_a: btc directional mean reversion
+- wallet_b: btc/sol market-neutral pairs trading
+- wallet_c: sol directional mean reversion
+- wallet_hodl_btc: btc buy and hold
+- wallet_hodl_sol: sol buy and hold
 
-Run the downloader from the repository root:
+the strategy design will use next-day execution, shifted positions, transaction costs, equity curves, drawdowns, sharpe ratio, win rate, and matplotlib diagnostics.
+
+## reproduce the raw data
+
+from the repository root:
 
 ```bash
 python3 scripts/download_binance_us_klines.py
 ```
 
-The script writes raw CSV files to `data/raw/`.
-
-## Current Status
-
-This is an initial repository upload containing the data source script, raw CSV exports, and data-only processed analysis output. The production-grade backtesting modules, risk metrics, and visualization layer are planned but not yet implemented.
+the script writes symbol-level csv files into `data/raw/`.
